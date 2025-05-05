@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  imdb-sentiment-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"  # API
+      - "5001:5001"  # MLflow UI
+    volumes:
+      - ./data:/app/data
+      - ./mlruns:/app/mlruns
+      - ./models/artifacts:/app/models/artifacts
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped 
